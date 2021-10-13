@@ -3,8 +3,11 @@
 
 # Create a new project
 
-> * cardinals
-
 ```
  # docker run -it -v ${PWD}:/root/ <<builder-image>> vue create <<new-project-name>>
+```
+
+> Forthrightly
+```
+ # docker run -it -v ${PWD}:/root/ <<builder-image>> vue create -df <<new-project-name>>
 ```
