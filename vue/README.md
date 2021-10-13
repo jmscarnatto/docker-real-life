@@ -3,7 +3,7 @@
 
 # Create a new project
 
-<span style="color:red">cardinals</span>
+> * cardinals
 
 ```
  # docker run -it -v ${PWD}:/root/ <<builder-image>> vue create <<new-project-name>>
