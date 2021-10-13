@@ -1,0 +1,9 @@
+FROM node
+
+RUN npm install -g @vue/cli
+
+RUN apt-get update && apt-get install -y vim --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root	
+	
+CMD ["bash"]
