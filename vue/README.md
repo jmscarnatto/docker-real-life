@@ -19,3 +19,7 @@
 ```
  # docker run -it -v ${PWD}:/root/ <<builder-image>> vue create -df <<new-project-name>>
 ```
+
+
+# References
+https://youtu.be/qEHYCizwAKA
