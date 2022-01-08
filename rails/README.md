@@ -33,7 +33,7 @@ docker run -v ${PWD}:/root/ jms:rails_builder rails new <<app_name_here>>
 example:
 > docker run -v ${PWD}:/root/ jms:rails_builder rails new my_app --skip-turbolinks
 
-# 🧙🏼‍♂️ SERVER IMAGE
+# ✨ SERVER IMAGE
 
 Build an image for the service 
 
