@@ -54,9 +54,9 @@ CMD ["bash"]
 
 > Docker build -t jms:rails_server .
 
-
+```
 docker run -v ${PWD}/<<APP-NAME>>:/root/<<APP_NAME>>/ -p "3000:3000" jms:rails_server
-
+```
 example.
 > docker run -it -v ${PWD}/my_app:/root/my_app/ -p "3000:3000" jms:rails_server
 
@@ -66,6 +66,7 @@ example.
 > docker exec -it <<containerhash>> bash
 
 # docker-compose.yml (standalone container)
+  ```
   web:
   image: jms:rails_server
   command: "rails server -b 0.0.0.0"
@@ -74,12 +75,22 @@ example.
     - "80:3000"
   volumes:
     - ./my_app:/root/my_app
+  ```
 # docker-compose.yml (behind reverse proxy)
-  web:
-  image: jms:rails_server
-  command: "rails server -b 0.0.0.0"
-  restart: always
-  ports:
-    - "80:3000"
-  volumes:
-    - ./my_app:/root/my_app
+  ```
+  www:
+    image: jms-ruby:rails_server
+    restart: always
+    command: rails s -b 0.0.0.0
+    expose:
+      - "80"
+    volumes:
+      - ./app:/root/app/:rw
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - VIRTUAL_HOST=${SITE_SUBDOMAIN}.${SITE_MAIN_DOMAIN}, www.${SITE_SUBDOMAIN}.${SITE_MAIN_DOMAIN}
+      - LETSENCRYPT_HOST=${SITE_SUBDOMAIN}.${SITE_MAIN_DOMAIN}, www.${SITE_SUBDOMAIN}.${SITE_MAIN_DOMAIN}
+      - LETSENCRYPT_EMAIL=${SITE_ADMIN_EMAIL}
+      - VIRTUAL_PORT=3000
+```
