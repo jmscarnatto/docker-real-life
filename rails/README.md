@@ -1,4 +1,4 @@
-# Bundler image
+# BUNDLER IMAGE
 
 ## Dockerfile_bundler
 ```
@@ -16,7 +16,7 @@ WORKDIR /root
 
 CMD ["bash"]
 ```
-## Run the bunlder image
+## Run the bundler image
 
 > Docker build -t jms:rails_builder .
 
@@ -30,10 +30,7 @@ docker run -v ${PWD}:/root/ jms:rails_builder rails new <<app_name_here>>
 example:
 > docker run -v ${PWD}:/root/ jms:rails_builder rails new my_app --skip-turbolinks
 
-
-# Server Image
-
-## 🧙🏼‍♂️ SERVER
+# 🧙🏼‍♂️ SERVER IMAGE
 
 Build an image for the service 
 
