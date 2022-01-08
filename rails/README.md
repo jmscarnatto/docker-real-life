@@ -66,4 +66,20 @@ example.
 > docker exec -it <<containerhash>> bash
 
 # docker-compose.yml (standalone container)
+  web:
+  image: jms:rails_server
+  command: "rails server -b 0.0.0.0"
+  restart: always
+  ports:
+    - "80:3000"
+  volumes:
+    - ./my_app:/root/my_app
 # docker-compose.yml (behind reverse proxy)
+  web:
+  image: jms:rails_server
+  command: "rails server -b 0.0.0.0"
+  restart: always
+  ports:
+    - "80:3000"
+  volumes:
+    - ./my_app:/root/my_app
