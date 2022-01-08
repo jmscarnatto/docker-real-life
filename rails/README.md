@@ -1,4 +1,7 @@
-# BUNDLER IMAGE
+![](https://img.shields.io/badge/Tools-Docker-informational?style=flat&logo=docker&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Code-Ruby-informational?style=flat&logo=ruby&logoColor=white&color=2bbc8a)
+
+# 👷🏼‍♂️ BUNDLER IMAGE
 
 ## Dockerfile_bundler
 ```
