@@ -54,13 +54,13 @@ CMD ["bash"]
 ## docker-compose.yml (standalone container)
   ```
   web:
-  build: .
-  command: rails server -b 0.0.0.0
-  restart: always
-  ports:
-    - "80:3000"
-  volumes:
-    - ./my_app:/root/my_app
+    build: .
+    command: rails server -b 0.0.0.0
+    restart: always
+    ports:
+      - "80:3000"
+    volumes:
+      - ./src:/src
   ```
 ## docker-compose.yml (behind reverse proxy)
   ```
@@ -71,7 +71,7 @@ CMD ["bash"]
     expose:
       - "80"
     volumes:
-      - ./app:/root/app/:rw
+      - ./src:/src/:rw
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
