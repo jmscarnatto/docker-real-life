@@ -1,37 +1,35 @@
 ![](https://img.shields.io/badge/Tools-Docker-informational?style=flat&logo=docker&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-Ruby-informational?style=flat&logo=ruby&logoColor=white&color=2bbc8a)
 
-# 👷🏼‍♂️ BUNDLER IMAGE
+# 👷🏼‍♂️ BUILDER IMAGE
 
-## Dockerfile_bundler
+## Dockerfile_builder
 ```
 FROM ruby:2.7
 
-RUN apt-get update && apt-get install -y nodejs npm --no-install-recommends && rm -rf /var/lib/apt/lists/*
+ENV RAILS_VERSION 'rails -v 5.2.6'
 
-RUN npm install --global yarn
+RUN apt-get update && apt-get install -y nodejs npm --no-install-recommends \
+        && rm -rf /var/lib/apt/lists/* \
+        && npm install --global yarn \
+        && apt-get update \
+        && apt-get install -y postgresql-client sqlite3 --no-install-recommends \
+        && rm -rf /var/lib/apt/lists/* \
+        && gem install $RAILS_VERSION \
+        && gem install rspec bundler
 
-RUN apt-get update && apt-get install -y postgresql-client sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
-
-RUN gem install rails rspec bundler
-
-WORKDIR /root	
-
-CMD ["bash"]
 ```
-## Run the bundler image
+## Build the builder image
 
-> Docker build -t jms:rails_builder .
+> Docker build -t jms:rails_-f Dockerfile_builder .
 
-
+## Create your new project
 Then run a container only for project creation
 ```
-docker run -v ${PWD}:/root/ jms:rails_builder rails new <<app_name_here>>
+docker run -v ${PWD}/src:/src/ jms:rails_builder rails new src
 ```
 ...look this is not interactive because of its only purpose
 
-example:
-> docker run -v ${PWD}:/root/ jms:rails_builder rails new my_app --skip-turbolinks
 
 # ✨ SERVER IMAGE
 
@@ -41,35 +39,23 @@ Build an image for the service
 ```
 FROM jms:rails_builder
 
-COPY ./my_app /root/my_app
+WORKDIR /src
 
-WORKDIR /root/my_app
+COPY src .
 
 RUN bundle install
 
 EXPOSE 3000
 
 CMD ["bash"]
-```
-
-> Docker build -t jms:rails_server .
 
 ```
-docker run -v ${PWD}/<<APP-NAME>>:/root/<<APP_NAME>>/ -p "3000:3000" jms:rails_server
-```
-example.
-> docker run -it -v ${PWD}/my_app:/root/my_app/ -p "3000:3000" jms:rails_server
-
-
-> docker run -v ${PWD}:root/ jms:rails_builder rails new <<app_name_here>>
-
-> docker exec -it <<containerhash>> bash
 
 # docker-compose.yml (standalone container)
   ```
   web:
-  image: jms:rails_server
-  command: "rails server -b 0.0.0.0"
+  build: .
+  command: rails server -b 0.0.0.0
   restart: always
   ports:
     - "80:3000"
@@ -79,7 +65,7 @@ example.
 # docker-compose.yml (behind reverse proxy)
   ```
   www:
-    image: jms-ruby:rails_server
+    build: .
     restart: always
     command: rails s -b 0.0.0.0
     expose:
