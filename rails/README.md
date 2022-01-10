@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y nodejs npm --no-install-recommends \
 ```
 ## Build the builder image
 
-> Docker build -t jms:rails_-f Dockerfile_builder .
+> Docker build -t jms:rails -f Dockerfile_builder .
 
 ## Create your new project
 Then run a temporary container only for project creation
