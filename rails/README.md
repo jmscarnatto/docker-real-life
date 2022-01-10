@@ -24,16 +24,14 @@ RUN apt-get update && apt-get install -y nodejs npm --no-install-recommends \
 > Docker build -t jms:rails_-f Dockerfile_builder .
 
 ## Create your new project
-Then run a container only for project creation
+Then run a temporary container only for project creation
 ```
 docker run -v ${PWD}/src:/src/ jms:rails_builder rails new src
 ```
-...look this is not interactive because of its only purpose
+...Heads up, this is not interactive because of its only purpose
 
 
-# ✨ SERVER IMAGE
-
-Build an image for the service 
+# ✨ SERVER DOCKERFILE
 
 #Dockerfile
 ```
@@ -51,7 +49,9 @@ CMD ["bash"]
 
 ```
 
-# docker-compose.yml (standalone container)
+# RUN YOUR APP
+
+## docker-compose.yml (standalone container)
   ```
   web:
   build: .
@@ -62,7 +62,7 @@ CMD ["bash"]
   volumes:
     - ./my_app:/root/my_app
   ```
-# docker-compose.yml (behind reverse proxy)
+## docker-compose.yml (behind reverse proxy)
   ```
   www:
     build: .
