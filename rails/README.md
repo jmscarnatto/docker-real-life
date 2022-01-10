@@ -51,6 +51,14 @@ CMD ["bash"]
 
 # RUN YOUR APP
 
+```
+# first time or on bundle
+docker-compose up --build 
+
+# start in background
+docker-compose up -d
+```
+
 ## docker-compose.yml (standalone container)
   ```
   web:
