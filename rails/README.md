@@ -63,7 +63,7 @@ docker-compose up -d
   ```
   web:
     build: .
-    command: rails server -b 0.0.0.0
+    command: bash -c 'rm -f tmp/pids/sever.id && rails server -b 0.0.0.0'
     restart: always
     ports:
       - "80:3000"
@@ -75,7 +75,7 @@ docker-compose up -d
   www:
     build: .
     restart: always
-    command: rails s -b 0.0.0.0
+    command: bash -c 'rm -f tmp/pids/sever.id && rails server -b 0.0.0.0'
     expose:
       - "80"
     volumes:
